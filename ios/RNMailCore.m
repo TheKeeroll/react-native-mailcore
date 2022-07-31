@@ -20,15 +20,9 @@ RCT_EXPORT_METHOD(loginSmtp:(NSDictionary *)obj resolver:(RCTPromiseResolveBlock
     MCOSMTPSession *smtpSession = [[MCOSMTPSession alloc] init];
     smtpSession.hostname = [RCTConvert NSString:obj[@"hostname"]];
     smtpSession.port = [RCTConvert int:obj[@"port"]];
-    smtpSession.connectionType = MCOConnectionTypeTLS;
-    
-    int authType = [RCTConvert int:obj[@"authType"]];
-    [smtpSession setAuthType:authType];
-    if (authType == MCOAuthTypeXOAuth2) {
-        [smtpSession setOAuth2Token:[RCTConvert NSString:obj[@"password"]]];
-    } else {
-        smtpSession.password = [RCTConvert NSString:obj[@"password"]];
-    }
+    smtpSession.connectionType =   MCOConnectionTypeClear;
+    [smtpSession setAuthType:MCOAuthTypeSASLNone]
+    smtpSession.password = [RCTConvert NSString:obj[@"password"]];
     [smtpSession setUsername:[RCTConvert NSString:obj[@"username"]]];
     
     _smtpObject = smtpSession;
