@@ -32,11 +32,10 @@ class MailInstance{
         port: this.mSMTPConfig.port,
         username: this.mUserCredentials.username,
         password: this.mUserCredentials.password,
+      }).then(()=>{
+        this.mLoggedIn = true
+        return Promise.resolve()
       })
-    })
-    return RNMailModule.Login(creds).then(()=>{
-      this.mLoggedIn = true
-      return Promise.resolve()
     })
   }
 
